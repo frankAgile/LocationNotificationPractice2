@@ -6,18 +6,26 @@
 //
 
 import UIKit
+import CoreLocation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    let locationManager = CLLocationManager()
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.windowScene = windowScene
+        let viewController = MainViewController()
+        let navViewController = UINavigationController(rootViewController: viewController)
+        window?.rootViewController = navViewController
+        window?.makeKeyAndVisible()
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
     }
+
+
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
@@ -52,4 +60,54 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
+
+extension SceneDelegate: CLLocationManagerDelegate {
+  func locationManager(
+    _ manager: CLLocationManager,
+    didEnterRegion region: CLRegion
+  ) {
+    if region is CLCircularRegion {
+      handleEvent(for: region)
+    }
+  }
+
+  func locationManager(
+    _ manager: CLLocationManager,
+    didExitRegion region: CLRegion
+  ) {
+    if region is CLCircularRegion {
+      handleEvent(for: region)
+    }
+  }
+
+  func handleEvent(for region: CLRegion) {
+    if UIApplication.shared.applicationState == .active {
+      guard let message = note(from: region.identifier) else { return }
+      window?.rootViewController?.showAlert(withTitle: nil, message: message)
+    } else {
+      guard let body = note(from: region.identifier) else { return }
+      let notificationContent = UNMutableNotificationContent()
+      notificationContent.body = body
+      notificationContent.sound = .default
+      notificationContent.badge = UIApplication.shared.applicationIconBadgeNumber + 1 as NSNumber
+      let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+      let request = UNNotificationRequest(
+        identifier: "location_change",
+        content: notificationContent,
+        trigger: trigger)
+      UNUserNotificationCenter.current().add(request) { error in
+        if let error = error {
+          print("Error: \(error)")
+        }
+      }
+    }
+  }
+
+  func note(from identifier: String) -> String? {
+    let geotifications = Geotification.allGeotifications()
+    let matched = geotifications.first { $0.identifier == identifier }
+    return matched?.note
+  }
+}
+
 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="yow-va-2gG" customClass="MapConfigTableViewCell" customModule="coreLocation2" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yow-va-2gG" id="xGZ-3R-Ou5">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="100" placeholder="Radius in meters" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="waw-dw-EVC">
+                        <rect key="frame" x="86" y="17" width="254" height="13"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                        <connections>
+                            <action selector="textFieldEditingChange:" destination="yow-va-2gG" eventType="editingChanged" id="nlh-HJ-zij"/>
+                        </connections>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radius" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCT-Ac-Ds7">
+                        <rect key="frame" x="26" y="16" width="50" height="13"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="dCT-Ac-Ds7" firstAttribute="leading" secondItem="xGZ-3R-Ou5" secondAttribute="leadingMargin" constant="6" id="3l1-9F-G4K"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="dCT-Ac-Ds7" secondAttribute="bottom" constant="4" id="KJo-5m-znD"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="waw-dw-EVC" secondAttribute="bottom" constant="3" id="Lvx-vh-WRU"/>
+                    <constraint firstItem="waw-dw-EVC" firstAttribute="top" secondItem="xGZ-3R-Ou5" secondAttribute="topMargin" constant="6" id="Mej-22-QdT"/>
+                    <constraint firstItem="waw-dw-EVC" firstAttribute="leading" secondItem="dCT-Ac-Ds7" secondAttribute="trailing" constant="10" id="T0q-ep-zyh"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="waw-dw-EVC" secondAttribute="trailing" constant="15" id="X2h-U4-59x"/>
+                    <constraint firstItem="dCT-Ac-Ds7" firstAttribute="top" secondItem="xGZ-3R-Ou5" secondAttribute="topMargin" constant="5" id="ab1-gz-Wtt"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="radiusTextField" destination="waw-dw-EVC" id="CjC-XN-faD"/>
+            </connections>
+            <point key="canvasLocation" x="62" y="132"/>
+        </tableViewCell>
+    </objects>
+</document>
