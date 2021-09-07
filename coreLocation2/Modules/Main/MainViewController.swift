@@ -20,22 +20,20 @@ class MainViewController: UIViewController {
     var geotifications: [Geotification] = []
     lazy var locationManager = CLLocationManager()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image:UIImage(systemName: "location.fill.viewfinder") , style: .plain, target: self, action: #selector(zoomLocation))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         navigationItem.title = "Geotifications:"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        self.navigationController?.navigationBar.barTintColor =  UIColor(red: 250, green: 0, blue: 0, alpha: 1.0)
+        self.navigationController?.navigationBar.barTintColor =  .systemGreen
+        self.navigationController?.navigationBar.isTranslucent = false
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         loadAllGeotifications()
     }
     
     @objc func addTapped() {
-        
-        
         let vc = AddZonesViewController()
         vc.delegate = self
         let navController = UINavigationController(rootViewController: vc)

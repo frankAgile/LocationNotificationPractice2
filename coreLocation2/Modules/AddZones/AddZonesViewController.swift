@@ -36,7 +36,8 @@ class AddZonesViewController: UIViewController {
         navigationItem.rightBarButtonItems = [addButton,location ]
         navigationItem.title = "Add Geotifications:"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        self.navigationController?.navigationBar.barTintColor =  UIColor(red: 250, green: 0, blue: 0, alpha: 1.0)
+        self.navigationController?.navigationBar.barTintColor =  .systemGreen
+        self.navigationController?.navigationBar.isTranslucent = false
         addButton.isEnabled = false
         // Do any additional setup after loading the view.
     }
